@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,6 +11,112 @@
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvDate"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineDay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgWeatherIcon"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp_20"
+            app:layout_constraintBottom_toTopOf="@id/txtTemp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guidelineDay"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_20"
+            android:textColor="@color/color_2C4981"
+            android:textSize="@dimen/dp_80"
+            app:layout_constraintBottom_toTopOf="@id/txtWeatherState"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgWeatherIcon"
+            tools:text="37" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtWeatherState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:maxLines="1"
+            android:textColor="@color/color_54AFEE"
+            android:textSize="@dimen/dp_30"
+            app:layout_constraintBottom_toTopOf="@id/txtDateTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTemp"
+            tools:text="Light Cloud" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dp_18"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineInform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtWeatherState"
+            tools:text="Mon Aug X, XXX" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineInform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <include
+            android:id="@+id/viewHumidity"
+            layout="@layout/view_weather_inform"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1.5"
+            app:layout_constraintEnd_toStartOf="@id/viewPredictability"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guidelineInform"
+            app:title="@{@string/text_humidity}"
+            app:percent="@{45}"
+            app:viewBackground="@{@drawable/oval_view_humidity}" />
+
+        <include
+            android:id="@+id/viewPredictability"
+            layout="@layout/view_weather_inform"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewHumidity"
+            app:layout_constraintTop_toTopOf="@id/viewHumidity"
+            app:title="@{@string/text_predictability}"
+            app:percent="@{20}"
+            app:viewBackground="@{@drawable/oval_view_predictability}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

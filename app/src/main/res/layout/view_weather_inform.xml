@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewBackground"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="percent"
+            type="int" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{viewBackground}"
+        android:paddingVertical="@dimen/dp_20">
+
+        <test.dn.weather.widget.ArcProgress
+            android:id="@+id/arcProgress"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="0dp"
+            app:arc_angle="250"
+            app:arc_finished_color="@color/white"
+            app:arc_max="100"
+            app:arc_progress="@{percent}"
+            app:arc_unfinished_color="@color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/txtPercent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtPercent"
+            style="@style/viewInformTitle.percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:setTextPercent="@{percent}"
+            app:layout_constraintBottom_toTopOf="@id/txtTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/arcProgress"
+            tools:text="123" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtTitle"
+            style="@style/viewInformTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtPercent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

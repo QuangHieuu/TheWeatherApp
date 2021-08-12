@@ -2,4 +2,7 @@
   <string name="app_name">The Weather</string>
 
   <string name="text_internet_error">Internet Error, Re-Check Please!</string>
+
+  <string name="text_humidity">Humidity</string>
+  <string name="text_predictability">Predictability</string>
 </resources>
