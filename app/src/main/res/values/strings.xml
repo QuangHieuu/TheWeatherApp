@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">The Weather</string>
+
+  <string name="text_internet_error">Internet Error, Re-Check Please!</string>
+</resources>
