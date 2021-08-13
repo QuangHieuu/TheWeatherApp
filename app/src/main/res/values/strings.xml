@@ -5,4 +5,5 @@
 
   <string name="text_humidity">Humidity</string>
   <string name="text_predictability">Predictability</string>
+  <string name="text_celsius">&#176;c</string>
 </resources>

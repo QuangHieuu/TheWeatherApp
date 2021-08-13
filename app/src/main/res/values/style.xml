@@ -12,12 +12,13 @@
 
     <style name="viewInformTitle">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/dp_10</item>
+        <item name="android:textSize">@dimen/dp_12</item>
         <item name="maxLines">1</item>
     </style>
 
     <style name="viewInformTitle.percent">
-        <item name="android:textSize">@dimen/dp_12</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/dp_22</item>
     </style>
 
 </resources>

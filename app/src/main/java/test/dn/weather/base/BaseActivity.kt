@@ -30,6 +30,7 @@ abstract class BaseActivity<AC : ViewDataBinding, VM : BaseViewModel> :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutID)
+        binding.lifecycleOwner = this
         initialize()
         baseObserver()
         onSubscribeObserver()

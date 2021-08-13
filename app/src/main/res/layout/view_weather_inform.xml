@@ -15,41 +15,43 @@
 
         <variable
             name="percent"
-            type="int" />
+            type="Float" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@{viewBackground}"
         android:paddingVertical="@dimen/dp_20">
 
         <test.dn.weather.widget.ArcProgress
             android:id="@+id/arcProgress"
-            android:layout_width="@dimen/dp_75"
+            android:layout_width="@dimen/dp_85"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_5"
             app:arc_angle="250"
             app:arc_finished_color="@color/white"
             app:arc_max="100"
             app:arc_progress="@{percent}"
-            app:arc_unfinished_color="@color/transparent"
+            app:arc_stroke_width="@dimen/dp_5"
+            app:arc_unfinished_color="@color/transparent_47"
             app:layout_constraintBottom_toTopOf="@id/txtPercent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtPercent"
             style="@style/viewInformTitle.percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:setTextPercent="@{percent}"
             app:layout_constraintBottom_toTopOf="@id/txtTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/arcProgress"
+            app:setTextPercent="@{percent}"
             tools:text="123" />
 
         <androidx.appcompat.widget.AppCompatTextView

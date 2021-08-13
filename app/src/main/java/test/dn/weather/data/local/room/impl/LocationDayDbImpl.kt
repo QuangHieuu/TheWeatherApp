@@ -11,4 +11,6 @@ class LocationDayDbImpl(private val dao: LocationDayDao) {
     fun clearAll() {
         dao.clearAll()
     }
+
+    fun getAll() = dao.getAll()
 }

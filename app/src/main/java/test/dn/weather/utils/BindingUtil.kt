@@ -1,38 +1,29 @@
 package test.dn.weather.utils
 
-import android.text.SpannableString
-import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
-import android.text.TextUtils
-import android.text.style.AbsoluteSizeSpan
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
-import test.dn.weather.R
+import com.bumptech.glide.Glide
+import test.dn.weather.Environment
 import test.dn.weather.widget.ArcProgress
-
 
 @BindingAdapter("arc_progress")
 fun setArcPercent(view: ArcProgress, percent: Float = 0f) {
     view.setProgress(percent)
 }
 
-@BindingAdapter("setTextPercent")
-fun setTextPercent(view: AppCompatTextView, percent: Float = 0f) {
-    val text = SpannableString(percent.toString()).apply {
-        setSpan(
-            AbsoluteSizeSpan(view.resources.getDimensionPixelSize(R.dimen.dp_12)),
-            0,
-            percent.toString().length,
-            SPAN_INCLUSIVE_INCLUSIVE
-        )
-    }
+@BindingAdapter("setWeatherIcon")
+fun setWeatherIcon(
+    view: AppCompatImageView,
+    abbr: String?
+) {
+    val url = Environment.BASE_URL + Environment.IMAGE_PREFIX + "png/64/${abbr}.png"
+    Glide.with(view).asBitmap().load(url).into(view)
+}
 
-    val percentSign = SpannableString("%").apply {
-        setSpan(
-            AbsoluteSizeSpan(view.resources.getDimensionPixelSize(R.dimen.dp_10)),
-            0,
-            1,
-            SPAN_INCLUSIVE_INCLUSIVE
-        )
+@BindingAdapter("setTextFullDate")
+fun setTextFullDate(view: AppCompatTextView, date: String?) {
+    if (date != null) {
+        view.text = TimeConvert.formatDate(date, formatOutput = "EEE MM dd, YYYY")
     }
-    view.text = TextUtils.concat(text, percentSign)
 }

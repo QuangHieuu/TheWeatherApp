@@ -7,5 +7,5 @@ import test.dn.weather.ui.splash.SplashVM
 
 val viewModelModule = module {
     viewModel { SplashVM(get(), get()) }
-    viewModel { MainVM() }
+    viewModel { MainVM(get()) }
 }

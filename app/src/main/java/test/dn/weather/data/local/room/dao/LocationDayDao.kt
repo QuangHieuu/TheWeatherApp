@@ -9,7 +9,7 @@ interface LocationDayDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: ArrayList<LocationDay>)
 
-    @Query("SELECT * FROM LocationDay")
+    @Query("SELECT * FROM LocationDay ORDER BY applicable_date ASC")
     fun getAll(): List<LocationDay>
 
     @Query("DELETE FROM LocationDay")
