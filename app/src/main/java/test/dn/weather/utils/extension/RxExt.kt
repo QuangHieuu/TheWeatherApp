@@ -65,14 +65,14 @@ fun <T> Flowable<T>.withScheduler(scheduler: BaseSchedulerProvider): Flowable<T>
 fun <T> Single<T>.loading(liveData: MutableLiveData<Boolean>) =
     doOnSubscribe { liveData.postValue(true) }.doFinally { liveData.postValue(false) }
 
-fun <T> Observable<T>.checkInternet() = doOnSubscribe {
+fun <T> Observable<T>.checkInternet(): Observable<T> = doOnSubscribe {
     val isConnected = InternetManager.isConnected()
     if (!isConnected) {
         throw InternetException()
     }
 }
 
-fun <T> Flowable<T>.checkInternet() = doOnSubscribe {
+fun <T> Flowable<T>.checkInternet(): Flowable<T> = doOnSubscribe {
     val isConnected = InternetManager.isConnected()
     if (!isConnected) {
         throw InternetException()
@@ -86,9 +86,18 @@ fun <T> Single<T>.checkInternet() = doOnSubscribe {
     }
 }
 
-fun Completable.checkInternet() = doOnSubscribe {
+fun Completable.checkInternet(): Completable = doOnSubscribe {
     val isConnected = InternetManager.isConnected()
     if (!isConnected) {
         throw InternetException()
     }
 }
+
+fun <T> Observable<T>.loading(liveData: MutableLiveData<Boolean>): Observable<T> =
+    doOnSubscribe { liveData.postValue(true) }.doFinally { liveData.postValue(false) }
+
+fun <T> Flowable<T>.loading(liveData: MutableLiveData<Boolean>): Flowable<T> =
+    doOnSubscribe { liveData.postValue(true) }.doFinally { liveData.postValue(false) }
+
+fun Completable.loading(liveData: MutableLiveData<Boolean>) =
+    doOnSubscribe { liveData.postValue(true) }.doFinally { liveData.postValue(false) }

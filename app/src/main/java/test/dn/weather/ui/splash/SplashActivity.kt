@@ -14,11 +14,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashVM>() {
     override val mViewModel: SplashVM by viewModel()
 
     override fun initialize() {
-        mViewModel.getLocationDay("2021/07/31")
+        mViewModel.getLocationDay()
     }
 
     override fun onSubscribeObserver() {
         with(mViewModel) {
+            loading.observe(this@SplashActivity, { if (it) showLoading() else hideLoading() })
+
             handleError.observe(this@SplashActivity, { handleApiError(it) })
 
             toMainActivity.observe(this@SplashActivity, {
