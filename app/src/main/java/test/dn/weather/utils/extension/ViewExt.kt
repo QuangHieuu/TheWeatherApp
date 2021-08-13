@@ -15,6 +15,7 @@ import android.webkit.WebViewClient
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,6 +46,9 @@ fun View.isVisible(): Boolean {
 
 fun Context.showToast(message: String? = "") =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+fun Context.showSnackBar(message: String?, mainView: View) =
+    Snackbar.make(mainView, message ?: "", Snackbar.LENGTH_LONG).show()
 
 @SuppressLint("SetJavaScriptEnabled")
 fun WebView.loadWebViewUrl(url: String?, progressBar: ProgressBar?) {

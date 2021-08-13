@@ -4,6 +4,8 @@ import android.content.Intent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import test.dn.weather.R
 import test.dn.weather.base.BaseActivity
+import test.dn.weather.data.remote.api.error.RetrofitException
+import test.dn.weather.data.remote.api.error.Type
 import test.dn.weather.databinding.ActivitySplashBinding
 import test.dn.weather.ui.main.MainActivity
 
@@ -21,7 +23,17 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashVM>() {
         with(mViewModel) {
             loading.observe(this@SplashActivity, { if (it) showLoading() else hideLoading() })
 
-            handleError.observe(this@SplashActivity, { handleApiError(it) })
+            handleError.observe(this@SplashActivity, {
+                handleApiError(it, binding.splashContainer)
+                if (it is RetrofitException && it.getErrorType() == Type.NETWORK) {
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java).apply {
+                        flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                    Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                }
+            })
 
             toMainActivity.observe(this@SplashActivity, {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java).apply {

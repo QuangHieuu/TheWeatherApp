@@ -18,7 +18,10 @@ fun setWeatherIcon(
     abbr: String?
 ) {
     val url = Environment.BASE_URL + Environment.IMAGE_PREFIX + "png/64/${abbr}.png"
-    Glide.with(view).asBitmap().load(url).into(view)
+    Glide.with(view)
+        .asBitmap()
+        .load(url)
+        .into(view)
 }
 
 @BindingAdapter("setTextFullDate")

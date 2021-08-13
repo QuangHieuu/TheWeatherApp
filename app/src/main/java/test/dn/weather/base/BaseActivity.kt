@@ -2,19 +2,18 @@ package test.dn.weather.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import test.dn.weather.R
 import test.dn.weather.data.remote.api.error.RetrofitException
 import test.dn.weather.data.remote.api.error.Type
-import test.dn.weather.utils.extension.notNull
-import test.dn.weather.utils.extension.showToast
+import test.dn.weather.utils.extension.showSnackBar
+import test.dn.weather.widget.ProgressDialog
 import java.net.HttpURLConnection
 
 @SuppressLint("Registered")
@@ -26,11 +25,13 @@ abstract class BaseActivity<AC : ViewDataBinding, VM : BaseViewModel> :
     protected abstract val mViewModel: VM
 
     private val compositeDisposable = CompositeDisposable()
+    private lateinit var progress: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutID)
         binding.lifecycleOwner = this
+        progress = ProgressDialog(this)
         initialize()
         baseObserver()
         onSubscribeObserver()
@@ -58,9 +59,11 @@ abstract class BaseActivity<AC : ViewDataBinding, VM : BaseViewModel> :
     }
 
     override fun showLoading() {
+        progress.show()
     }
 
     override fun hideLoading() {
+        progress.dismiss()
     }
 
     override fun showToastSuccess(message: String) {
@@ -71,27 +74,27 @@ abstract class BaseActivity<AC : ViewDataBinding, VM : BaseViewModel> :
 
     }
 
-    override fun handleApiError(apiError: Throwable) {
+    override fun handleApiError(apiError: Throwable, view: View) {
         if (apiError is RetrofitException) {
             if (apiError.getErrorType() == Type.NETWORK) {
-                showToast(apiError.getMsgError())
+                showSnackBar(apiError.getMsgError(), view)
                 return
             }
 
             if (apiError.getErrorCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                showToast(apiError.getMsgError())
+                showSnackBar(apiError.getMsgError(), view)
                 return
             }
 
             val msgError = apiError.getMsgError()
             if (msgError != null) {
-                showToast(msgError)
+                showSnackBar(msgError, view)
                 return
             }
 
             val allMsgError = apiError.getAllMsgError(this)
             if (allMsgError != null) {
-                showToast(allMsgError)
+                showSnackBar(allMsgError, view)
                 return
             }
         }
